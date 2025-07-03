@@ -1,3 +1,5 @@
+"use client";
+import { SessionProvider } from "next-auth/react";
 import "./globals.css";
 import BubbleParticles from "@repo/ui/BubbleParticle";
 
@@ -5,9 +7,10 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
   return (
     <html lang="en">
       <body className="bg-gray-800">
-        <main>
+
+        <SessionProvider>
           {children}
-        </main>
+        </SessionProvider>
       </body>
     </html>
   );

@@ -43,10 +43,10 @@ function Login({ onLogin }: LoginProps) {
             >
                 Login
             </Button>
-            <div className="text-center font-semibold">Continue with Google</div>
+            <div className="text-center font-semibold">or</div>
             <button
                 className="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 font-bold rounded"
-                onClick={() => signIn("google",  { callbackUrl: "/" })}
+                onClick={() => signIn("google", { callbackUrl: "/auth-callback?mode=login" })}
             >
                 Login with Google
             </button>

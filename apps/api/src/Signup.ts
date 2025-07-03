@@ -46,7 +46,7 @@ Signup.post("/", async (req: Request, res: Response) => {
         const url = `${process.env.BASE_URL}/auth/VerifyEmail?token=${token}`;
 
 
-        console.log(url);
+        // console.log(url);
         const mail = await transporter.sendMail({
             to: email,
             subject: "Verify your email",

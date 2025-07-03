@@ -82,13 +82,14 @@ function Signup() {
             >
                 Signup
             </Button>
-            <div className="text-center font-semibold">Signup with Google</div>
+            <div className="text-center font-semibold">or</div>
             <button
                 className="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 font-bold rounded"
-                onClick={() => signIn("google", { callbackUrl: "/" })}
+                onClick={() => signIn("google", { callbackUrl: "/auth-callback?mode=signup" })}
             >
-                Sign up with Google
+                Signup with Google
             </button>
+            <div className="text-center font-semibold">already have an account? <button className="text-blue-300 hover:underline" onClick={() => router.push("/u/login")}>Login</button></div>
             {/* </div> */}
             {/* </div> 
             </div> */}

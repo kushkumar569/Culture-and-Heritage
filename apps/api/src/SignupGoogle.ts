@@ -5,6 +5,7 @@ const { Router } = require("express");
 const googleSignup = Router();
 const { PrismaClient } = require("@prisma/client");
 const client = new PrismaClient();
+const jwt = require("jsonwebtoken");
 
 googleSignup.post("/", async (req: Request, res: Response) => {
     const { email, name } = req.body;
@@ -37,7 +38,9 @@ googleSignup.post("/", async (req: Request, res: Response) => {
             },
         });
 
-        return res.status(201).json({ message: "User created successfully", user });
+        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET || "default_secret")
+
+        return res.status(201).json({ token });
     } catch (error) {
         console.error("Error creating user:", error);
         return res.status(500).json({ error: "Internal server error" });

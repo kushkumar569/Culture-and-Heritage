@@ -3,13 +3,9 @@
 
 import { Button } from "@repo/ui/button";
 import { useRouter } from "next/navigation";
-import login from "../login/page";
 
-interface LoginProps {
-  onLogin: () => void;
-}
 
-export default function LoginBtn({ onLogin }: LoginProps) {
+export default function LoginBtn() {
   const router = useRouter();
   return (
     <Button

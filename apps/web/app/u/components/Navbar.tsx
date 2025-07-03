@@ -1,20 +1,28 @@
 "use client";
 
 import "../../globals.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@repo/ui/button";
 import Login from "./LoginBtn";
 import Signup from "./SignupBtn";
 import Profile from "./ProfileBtn";
-import {Input} from "@repo/ui/input"; // Import your custom animated Input component
+import { Input } from "@repo/ui/input"; // Import your custom animated Input component
 
 const sections = ["All", "Trending", "Suggestions", "Near"];
 
 export default function Navbar() {
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // initialize as false
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [activeSection, setActiveSection] = useState("All");
     const [searchText, setSearchText] = useState("");
+
+    useEffect(() => {
+        // Safe localStorage access inside client-only useEffect
+        if (typeof window !== "undefined") {
+            const logged = localStorage.getItem("logged") === "true";
+            setIsLoggedIn(logged);
+        }
+    }, []);
 
     const scrollToSection = (sectionId: string) => {
         const element = document.getElementById(sectionId.toLowerCase());
@@ -82,7 +90,7 @@ export default function Navbar() {
                     ) : (
                         <>
                             <Signup />
-                            <Login onLogin={() => setIsLoggedIn(true)} />
+                            <Login />
                         </>
                     )}
                 </div>
@@ -150,10 +158,7 @@ export default function Navbar() {
                         ) : (
                             <>
                                 <Signup />
-                                <Login onLogin={() => {
-                                    setIsLoggedIn(true);
-                                    setIsMenuOpen(false);
-                                }} />
+                                <Login />
                             </>
                         )}
                     </div>
