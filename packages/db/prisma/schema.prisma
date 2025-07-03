@@ -1,15 +1,159 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+enum PostType {
+  vlog
+  guideInfo
+  vendorInfo
+}
+
+enum PaymentStatus {
+  pending
+  completed
+  failed
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  password     String
+  isVlogger    Boolean  @default(false)
+  isGuide      Boolean  @default(false)
+  isVendor     Boolean  @default(false)
+  isTourist    Boolean  @default(true)
+  isVerified   Boolean  @default(false)
+  registeredAt DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  posts            Post[]
+  votes            Vote[]
+  vloggerProfile   VloggerProfile?
+  guideProfile     GuideProfile?
+  vendorProfile    VendorProfile?
+  chatTourist      ChatSession[]  @relation("TouristChats")
+  chatGuide        ChatSession[]  @relation("GuideChats")
+  paymentsMade     Payment[]      @relation("Payer")
+  paymentsReceived Payment[]      @relation("GuidePaid")
+  messagesSent     Message[]      @relation("SentMessages") 
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  title     String
+  content   String
+  mediaUrl  String?
+  type      PostType
+  upvotes   Int      @default(0)
+  downvotes Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user  User   @relation(fields: [userId], references: [id])
+  votes Vote[]
+}
+
+model Vote {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  postId    Int
+  vote      Int // +1 or -1
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  post Post @relation(fields: [postId], references: [id])
+
+  @@unique([userId, postId])
+}
+
+model VloggerProfile {
+  id          Int     @id @default(autoincrement())
+  userId      Int     @unique
+  bio         String?
+  channelUrl  String?
+  subscribers Int     @default(0)
+  isActive    Boolean @default(true)
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model GuideProfile {
+  id           Int     @id @default(autoincrement())
+  userId       Int     @unique
+  bio          String?
+  languages    String? // Comma-separated or JSON string
+  pricePerHour Decimal @default(0.0)
+  isAvailable  Boolean @default(true)
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model VendorProfile {
+  id          Int     @id @default(autoincrement())
+  userId      Int     @unique
+  shopName    String
+  description String?
+
+  user     User      @relation(fields: [userId], references: [id])
+  products Product[]
+}
+
+model Product {
+  id          Int     @id @default(autoincrement())
+  vendorId    Int
+  name        String
+  description String
+  price       Decimal
+  imageUrl    String?
+
+  vendor VendorProfile @relation(fields: [vendorId], references: [id])
+}
+
+// -----------------------
+// Payments & Chat
+// -----------------------
+
+model Payment {
+  id      Int           @id @default(autoincrement())
+  payerId Int
+  guideId Int
+  amount  Decimal
+  status  PaymentStatus @default(pending)
+  paidAt  DateTime      @default(now())
+
+  payer User @relation("Payer", fields: [payerId], references: [id])
+  guide User @relation("GuidePaid", fields: [guideId], references: [id])
+}
+
+model ChatSession {
+  id        Int       @id @default(autoincrement())
+  touristId Int
+  guideId   Int
+  isPaid    Boolean   @default(false)
+  startedAt DateTime  @default(now())
+  endedAt   DateTime?
+
+  tourist  User      @relation("TouristChats", fields: [touristId], references: [id])
+  guide    User      @relation("GuideChats", fields: [guideId], references: [id])
+  messages Message[]
+}
+
+model Message {
+  id       Int      @id @default(autoincrement())
+  chatId   Int
+  senderId Int
+  content  String
+  sentAt   DateTime @default(now())
+
+  chat   ChatSession @relation(fields: [chatId], references: [id])
+  sender User        @relation("SentMessages", fields: [senderId], references: [id])
 }

@@ -1,7 +1,14 @@
 {
-  "extends": "@repo/typescript-config/backend.json",
   "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./dist",
-  }
+    "target": "ES6",
+    "module": "CommonJS",
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }

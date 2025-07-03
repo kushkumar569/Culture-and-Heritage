@@ -1,27 +1,23 @@
+"use client";
 import { type JSX } from "react";
 
 export function Card({
   className,
   title,
   children,
-  href,
 }: {
   className?: string;
   title: string;
   children: React.ReactNode;
-  href: string;
 }): JSX.Element {
   return (
-    <a
-      className={className}
-      href={`${href}?utm_source=create-turbo&utm_medium=basic&utm_campaign=create-turbo"`}
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <h2>
-        {title} <span>-&gt;</span>
-      </h2>
-      <p>{children}</p>
-    </a>
+    <>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-800 p-4">
+        <div className="mb-4 w-full max-w-md bg-gray-600 text-gray-300 p-6 rounded-md shadow-lg space-y-4">
+          <h1 className="text-xl font-bold text-center mb-8 text-gray-300">{title}</h1>
+          {children}
+        </div>
+      </div>
+    </>
   );
 }
