@@ -17,7 +17,9 @@ googleLogin.post("/", async (req: Request, res: Response) => {
     try {
         // Check if user exists
         const existingUser = await client.user.findUnique({
-            where: { email },
+            where: { email,
+                isVerified: true
+             },
         });
 
         if (!existingUser) {
