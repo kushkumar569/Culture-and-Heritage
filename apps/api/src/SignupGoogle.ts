@@ -19,7 +19,8 @@ googleSignup.post("/", async (req: Request, res: Response) => {
         const existingUser = await client.user.findUnique({
             where: { email },
         });
-
+        console.log(existingUser);
+        
         if (existingUser) {
             return res.status(200).json({ message: "User already exists", user: existingUser });
         }

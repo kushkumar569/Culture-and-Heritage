@@ -11,7 +11,7 @@ export default function ProfileBtn() {
   return (
     <Button
       className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-1.5 rounded-md transition duration-150"
-      onClick={() => router.push("/Profile")} // Adjust the path as needed
+      onClick={() => router.push("/u/profile")} // Adjust the path as needed
     >
       Profile
     </Button>

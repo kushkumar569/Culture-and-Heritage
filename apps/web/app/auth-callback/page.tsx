@@ -29,13 +29,20 @@ function AuthCallbackClient() {
                 });
                 if (!res.ok) throw new Error(await res.text());
                 const data = await res.json();
-
+                console.log(data);
+                
                 if (mode === "signup") {
-                    localStorage.setItem("token", data.token); // optional
+                    if(data.message === "User already exists") {
+                        alert("User already exists. Please log in.");
+                        router.push("/u/login");
+                        return;
+                    }
+                    // localStorage.setItem("token", data.token); // optional
                     router.push("/u/login");
                 } else if (mode === "login") {
+                    localStorage.setItem("token", data.token);
                     localStorage.setItem("logged", "true");
-                    router.push("/");
+                    router.push("/");   
                 }
             } catch (err) {
                 alert(`Authentication failed. Please try again. ${err}`);
