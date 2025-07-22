@@ -1,16 +1,19 @@
 "use client";
 
+import { Search, } from 'lucide-react';
 import "../../globals.css";
 import React, { useState, useEffect } from "react";
 import { Button } from "@repo/ui/button";
 import Login from "./LoginBtn";
 import Signup from "./SignupBtn";
 import Profile from "./ProfileBtn";
+import { useRouter } from "next/navigation";
 import { Input } from "@repo/ui/input"; // Import your custom animated Input component
 
 const sections = ["All", "Trending", "Suggestions", "Near"];
 
 export default function Navbar() {
+    const router = useRouter();
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // initialize as false
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState("All");
@@ -41,7 +44,7 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto flex items-center justify-between h-20 px-4 md:px-6">
 
                 {/* Logo Section */}
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-3 hover:cursor-pointer" onClick={() => router.push("/")}>
                     <img
                         className="h-10"
                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/800px-Google_%22G%22_logo.svg.png"
@@ -81,7 +84,7 @@ export default function Navbar() {
                             className="absolute right-1 top-1/2 transform -translate-y-1/2 hover:bg-gray-700 text-white px-3 py-1 rounded-md text-sm transition duration-150"
                             onClick={handleSearch}
                         >
-                            🔎
+                            <Search />
                         </Button>
                     </div>
 

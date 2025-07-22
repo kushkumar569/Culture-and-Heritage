@@ -118,7 +118,7 @@ function Login({ onLogin }: LoginProps) {
             />
 
             <Button
-                className="bg-blue-500 hover:bg-blue-400 text-white px-4 py-2 font-bold rounded-md transition duration-150 w-full"
+                className="bg-blue-500 hover:bg-blue-400 hover:cursor-pointer text-white px-4 py-2 font-bold rounded-md transition duration-150 w-full"
                 onClick={loginuser}
             >
                 Login
@@ -131,7 +131,7 @@ function Login({ onLogin }: LoginProps) {
                     <div className="flex items-center justify-center space-x-4">
                         <div className="text-red-500 font-bold">{error}</div>
                         <button
-                            className="bg-blue-500 hover:bg-blue-400 text-white px-4 py-2 font-bold rounded-md transition duration-150"
+                            className="bg-blue-500 hover:bg-blue-400 hover:cursor-pointer text-white px-4 py-2 font-bold rounded-md transition duration-150"
                             onClick={verifyMail}
                         >
                             Verify Email
@@ -150,7 +150,7 @@ function Login({ onLogin }: LoginProps) {
                     <div className="flex items-center justify-center space-x-4">
                         <div className="text-white font-bold text-center">Create a new account</div>
                         <button
-                            className=" text-blue-300 hover:underline"
+                            className=" text-blue-300 hover:underline hover:cursor-pointer"
                             onClick={() => router.push("/u/signup")}
                         >
                             Signup
@@ -159,12 +159,9 @@ function Login({ onLogin }: LoginProps) {
                 )}
             </div>
 
-
-
-
             <div className="text-center font-semibold">or</div>
             <button
-                className="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 font-bold rounded"
+                className="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 font-bold rounded hover:cursor-pointer"
                 onClick={() => signIn("google", { callbackUrl: "/auth-callback?mode=login" })}
             >
                 Login with Google

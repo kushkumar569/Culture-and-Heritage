@@ -18,7 +18,7 @@ export const Button = ({ children, className, onClick }: ButtonProps) => {
       }}
       whileTap={{ scale: 0.95 }}
       transition={{ type: 'spring', stiffness: 1000, damping: 20 }}
-      className={`${className}`}
+      className={`hover:cursor-pointer ${className}`}
       onClick={onClick}
     >
       {children}
