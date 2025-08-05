@@ -36,7 +36,16 @@ export default function Navbar() {
     };
 
     const handleSearch = () => {
-        alert(`Searching for: ${searchText}`);
+        try{
+            if (!searchText.trim()) {
+                alert("Please enter a search term.");
+                return;
+            }
+            
+            router.push(`/search?query=${encodeURIComponent(searchText)}`);
+        }catch (error) {
+            console.error("Error during search:", error);
+        }
     };
 
     return (
