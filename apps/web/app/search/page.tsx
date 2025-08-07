@@ -28,9 +28,14 @@ export default function SearchPage() {
 
                 if (response.ok) {
                     const data = await response.json();
-                    if (Array.isArray(data) && data.length > 0) {
+                    console.log(data.redis);
+
+                    if (Array.isArray(data.redis) && data.redis.length > 0) {
+                        setPlaces(data.redis);
+                    } 
+                    else if(Array.isArray(data) && data.length > 0){
                         setPlaces(data);
-                    } else {
+                    }else {
                         setMsg("No places found.");
                     }
                 } else {

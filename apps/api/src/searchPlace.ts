@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { Router: RegisterRouter } = require("express");
 const searchPlaceRouter = RegisterRouter();
-
+const redisClient = require("./redisClient");
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 
 searchPlaceRouter.post("/place", async (req: any, res: any) => {
@@ -11,7 +11,7 @@ searchPlaceRouter.post("/place", async (req: any, res: any) => {
             const response = await fetch(geoUrl);
             const data = await response.json();
             console.log(data);
-            
+
             if (data.status === "OK") {
                 const location = data.results[0].geometry.location;
                 return `${location.lat},${location.lng}`;
@@ -27,6 +27,12 @@ searchPlaceRouter.post("/place", async (req: any, res: any) => {
     try {
         const { place } = req.body; // Ensure correct structure
         const radius = 20000; // 20km radius
+        const redisKey = `place:${place.toLowerCase().trim()}`;
+        const cachedResult = await redisClient.get(redisKey);
+
+        if (cachedResult) {
+            return res.json({ redis: JSON.parse(cachedResult) });
+        }
 
         // Convert city name to lat/lng
         const location = await getCoordinates(place);
@@ -58,6 +64,11 @@ searchPlaceRouter.post("/place", async (req: any, res: any) => {
                 lng: place.geometry.location.lng
             }
         }));
+
+        await redisClient.set(redisKey, JSON.stringify(formattedPlaces), {
+            EX: 3600,
+        });
+
 
         res.json(formattedPlaces);
     } catch (error) {
