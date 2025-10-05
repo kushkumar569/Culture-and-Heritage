@@ -10,7 +10,7 @@ searchPlaceRouter.post("/place", async (req: any, res: any) => {
             const geoUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(city)}&key=${GOOGLE_API_KEY}`;
             const response = await fetch(geoUrl);
             const data = await response.json();
-            console.log(data);
+            // console.log(data);
 
             if (data.status === "OK") {
                 const location = data.results[0].geometry.location;
@@ -86,7 +86,7 @@ searchPlaceRouter.post("/place/details", async (req: any, res: any) => {
         const response = await fetch(url);
         const data = await response.json();
 
-        console.log("Text Search API Response:", data);
+        // console.log("Text Search API Response:", data);
 
         if (data.status === "OK" && data.results.length > 0) {
             const placeData = data.results[0]; // Take the first match

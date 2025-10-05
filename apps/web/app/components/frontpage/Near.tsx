@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { ImageCard } from "@repo/ui/ImageCard";
 import { Button } from "@repo/ui/button";
+import { Loading } from "@repo/ui/Loading";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 
@@ -48,7 +49,9 @@ export default function All() {
                 if (response.ok) {
                     const data = await response.json();
                     if (Array.isArray(data)) {
-                        setPlaces(data);
+                      await setPlaces(data);
+                        // console.log(data);
+                        
                     } else {
                         console.error("Expected array from response, got:", data);
                     }
@@ -129,6 +132,7 @@ export default function All() {
     ) : (
         <div className="flex items-center justify-center h-screen text-white">
             <p>{msg}</p>
+            {/* <Loading /> */}
         </div>
     );
 }

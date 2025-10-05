@@ -13,7 +13,7 @@
     "next-env.d.ts",
     "next.config.js",
     ".next/types/**/*.ts"
-, "../api/src/route.ts"  ],
+, "../api/src/route.ts", "../../packages/ui/src/Loading.tsx"  ],
   "exclude": [
     "node_modules"
   ]

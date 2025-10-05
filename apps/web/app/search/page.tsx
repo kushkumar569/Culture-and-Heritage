@@ -1,15 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation"; // ✅ Import this hook
+import { useSearchParams } from "next/navigation"; // Import this hook
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@repo/ui/button";
 import { ImageCard } from "@repo/ui/ImageCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function SearchPage() {
-    const searchParams = useSearchParams(); // ✅ Use the hook
-    const place = searchParams.get("query") || ""; // ✅ Access query safely
+    const searchParams = useSearchParams(); //  Use the hook
+    const place = searchParams.get("query") || ""; // Access query safely
 
     const [places, setPlaces] = useState<any[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -25,10 +25,11 @@ export default function SearchPage() {
                     },
                     body: JSON.stringify({ place }),
                 });
-
+                console.log(response);
+                
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data.redis);
+                    console.log(data);
 
                     if (Array.isArray(data.redis) && data.redis.length > 0) {
                         setPlaces(data.redis);

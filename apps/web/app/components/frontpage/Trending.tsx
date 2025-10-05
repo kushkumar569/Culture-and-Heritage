@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { ImageCard } from "@repo/ui/ImageCard";
 import { Button } from "@repo/ui/button";
+import { Loading } from "@repo/ui/Loading";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight } from 'lucide-react';
 import { ChevronLeft } from 'lucide-react';
@@ -67,7 +68,7 @@ export default function All() {
                 }
             }
 
-            setPlaces(fetchedData);
+            await setPlaces(fetchedData);
         };
 
         fetchPlaces();
@@ -94,7 +95,7 @@ export default function All() {
 
     return (
         <div className="relative w-full h-screen overflow-hidden bg-black">
-            {places.length > 0 && (
+            {places.length > 0 ? (
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={currentIndex}
@@ -114,7 +115,7 @@ export default function All() {
                         </ImageCard>
                     </motion.div>
                 </AnimatePresence>
-            )}
+            ) : <Loading />}
 
             {/* Navigation Buttons */}
             <div className="absolute inset-y-0 left-0 flex items-center">

@@ -2,9 +2,11 @@
 import { useState, useEffect } from "react";
 import { ImageCard } from "@repo/ui/ImageCard";
 import { Button } from "@repo/ui/button";
+import { Loading } from "@repo/ui/Loading";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight } from 'lucide-react';
 import { ChevronLeft } from 'lucide-react';
+
 
 export default function All() {
     const [places, setPlaces] = useState<any[]>([]);
@@ -60,7 +62,8 @@ export default function All() {
                 }
             }
 
-            setPlaces(fetchedData);
+           await setPlaces(fetchedData);
+            // console.log(places);          
         };
 
         fetchPlaces();
@@ -87,8 +90,9 @@ export default function All() {
 
     return (
         <div className="relative w-full h-screen overflow-hidden bg-black">
-            {places.length > 0 && (
+            {places.length > 0 ? (
                 <AnimatePresence mode="wait">
+                    {/* <div>{places?.[currentIndex]?.photos?.[0]}</div> */}
                     <motion.div
                         key={currentIndex}
                         initial={{ opacity: 0, x: 100 }}
@@ -100,14 +104,14 @@ export default function All() {
                         <ImageCard
                             name={places[currentIndex].name}
                             location={places[currentIndex].address}
-                            imageUrl={places[currentIndex].photos[0]}
+                            imageUrl={places?.[currentIndex]?.photos?.[0] || "https://img.freepik.com/premium-psd/flying-macaw-parrot-isolated-transparent-background-png-psd_888962-1748.jpg?semt=ais_hybrid&w=740&q=80"}
                             rating={places[currentIndex].rating}
                         >
                             <p>{places[currentIndex].description}</p>
                         </ImageCard>
                     </motion.div>
                 </AnimatePresence>
-            )}
+            ) : <Loading />}
 
             {/* Navigation Buttons */}
             <div className="absolute inset-y-0 left-0 flex items-center">
