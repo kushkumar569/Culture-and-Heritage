@@ -6,6 +6,7 @@ const verifyEmail = require("./VerifyEmail");
 const googleSignup = require("./SignupGoogle");
 const googleLogin = require("./LoginGoogle");
 const {searchPlaceRouter: searchPlace} = require("./searchPlace");
+const profile = require("./Profile");
 
 const cors = require('cors');
 const app = express();
@@ -18,6 +19,7 @@ app.use("/api/verifyEmail", verifyEmail);
 app.use("/api/googleSignup",googleSignup);
 app.use("/api/googleLogin", googleLogin);
 app.use("/api/search", searchPlace);
+app.use("/api/user/profile", profile);
 
 app.listen(process.env.PORT, () => {
     console.log(`APIs is running on http://localhost:${process.env.PORT}`);

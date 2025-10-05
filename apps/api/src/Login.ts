@@ -70,3 +70,4 @@ Login.post("/verifyEmail", async (req: any, res: any) => {
 });
 
 module.exports = Login;
+export {};  // use this to prevent "Cannot redeclare block-scoped variable" error in VSCode
