@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@repo/ui/button";
 import { ImageCard } from "@repo/ui/ImageCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import LocationStatus from "../u/components/LocationStatus";
 
 export default function SearchPage() {
     const searchParams = useSearchParams(); //  Use the hook
@@ -102,7 +103,7 @@ export default function SearchPage() {
         </div>
     ) : (
         <div className="flex items-center justify-center h-screen text-white">
-            <p>{msg}</p>
+            <LocationStatus msg={msg} />
         </div>
     );
 }
