@@ -6,7 +6,7 @@ export default function Layout({ children, }: Readonly<{ children: React.ReactNo
     return (
         <>
             <div className="bg-gray-800">
-                <Navbar />
+                {/* <Navbar /> */}
                 {children}
             </div>
         </>
