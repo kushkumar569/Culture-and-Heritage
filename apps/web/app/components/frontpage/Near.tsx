@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { ImageCard } from "@repo/ui/ImageCard";
 import { Button } from "@repo/ui/button";
 import { Loading } from "@repo/ui/Loading";
+import LocationStatus from "../../u/components/LocationStatus";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 
@@ -11,7 +12,7 @@ export default function All() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [lat, setLat] = useState<number | null>(null);
     const [lng, setLng] = useState<number | null>(null);
-    const [msg, setMsg] = useState<string>("");
+    const [msg, setMsg] = useState<string>("Loading...");
     // Get location once on mount
     useEffect(() => {
         if ("geolocation" in navigator) {
@@ -131,8 +132,7 @@ export default function All() {
         </div>
     ) : (
         <div className="flex items-center justify-center h-screen text-white">
-            <p>{msg}</p>
-            {/* <Loading /> */}
+            <LocationStatus msg={msg} />
         </div>
     );
 }

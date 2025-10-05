@@ -93,9 +93,9 @@ export default function All() {
         setCurrentIndex(prev => (prev - 1 + places.length) % places.length);
     };
 
-    return (
+    return ( places.length > 0 ? ( 
         <div className="relative w-full h-screen overflow-hidden bg-black">
-            {places.length > 0 ? (
+            {places.length > 0 && (
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={currentIndex}
@@ -115,7 +115,7 @@ export default function All() {
                         </ImageCard>
                     </motion.div>
                 </AnimatePresence>
-            ) : <Loading />}
+            )}
 
             {/* Navigation Buttons */}
             <div className="absolute inset-y-0 left-0 flex items-center">
@@ -135,5 +135,9 @@ export default function All() {
                 </Button>
             </div>
         </div>
-    );
+    ) : (
+        <div className="flex items-center justify-center h-screen text-white">
+            <Loading />
+        </div>
+    ) );
 }
