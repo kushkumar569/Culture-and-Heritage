@@ -92,7 +92,7 @@ export default function All() {
         <div className="relative w-full h-screen overflow-hidden bg-black">
             {places.length > 0 && (
                 <AnimatePresence mode="wait">
-                    {/* <div>{places?.[currentIndex]?.photos?.[0]}</div> */}
+                    {/* <div className="text-white font-bold">{places?.[currentIndex]?.photos?.[0]}</div> */}
                     <motion.div
                         key={currentIndex}
                         initial={{ opacity: 0, x: 100 }}
@@ -104,11 +104,12 @@ export default function All() {
                         <ImageCard
                             name={places[currentIndex].name}
                             location={places[currentIndex].address}
-                            imageUrl={places?.[currentIndex]?.photos?.[0] || "https://img.freepik.com/premium-psd/flying-macaw-parrot-isolated-transparent-background-png-psd_888962-1748.jpg?semt=ais_hybrid&w=740&q=80"}
+                            imageUrl={places[currentIndex].photos?.[0] || "https://img.freepik.com/premium-psd/flying-macaw-parrot-isolated-transparent-background-png-psd_888962-1748.jpg?semt=ais_hybrid&w=740&q=80"}
                             rating={places[currentIndex].rating}
                         >
                             <p>{places[currentIndex].description}</p>
                         </ImageCard>
+                        {/* <img src={places?.[currentIndex]?.photos?.[0]} alt="Place Image" /> */}
                     </motion.div>
                 </AnimatePresence>
             )

@@ -1,9 +1,15 @@
+"use client";
 import { useState } from "react";
 import { Button } from "@repo/ui/button";
+import { useContext } from "react";
+import { useProfile } from "../contextAPI/ProfileContext";
 
 export default function Sidebar() {
+    const { profileData } = useProfile();
     const [selected, setSelected] = useState("Tourist");
     const options = ["Tourist", "Vlogger", "Vendor", "Guide"];
+    // console.log(profileData);
+    
     return (
         <>
             <div className="flex min-h-screen w-full bg-gray-900 text-white border-gray-800">
@@ -27,6 +33,8 @@ export default function Sidebar() {
                     <p className="text-lg">
                         This is the content for <span className="font-semibold">{selected}</span>.
                     </p>
+                    <p className="mt-4">User Name: {profileData ? profileData.user.name : "Loading..."}</p>
+                    <p className="mt-2">Email: {profileData ? profileData.user.email : "Loading..."}</p>
                 </div>
             </div>
         </>
