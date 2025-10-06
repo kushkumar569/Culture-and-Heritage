@@ -3,10 +3,20 @@ import { useProfile } from "../contextAPI/ProfileContext";
 import { CircleUserRound } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Sidebar from "./Sidebar";
+import { useEffect, useState } from "react";
 
 export default function Profile() {
   const { profileData, loading, error } = useProfile();
+  const [Loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (profileData) {
+      setLoading(false);
+    }
+  }, [profileData]);
+
   const router = useRouter();
+
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -16,21 +26,30 @@ export default function Profile() {
 
   return (
     <>
-      <div className="flex items-center justify-start min-h-screen bg-gray-900 text-white space-y-4">
-        <div className="flex flex-col items-center justify-center min-h-screen w-3/4 bg-gray-800 text-white">
-          <Sidebar />
-        </div>
-        <div>
-          <div className="bg-gray-900 p-6 rounded-md space-y-2 text-center max-w-sm">
-            <CircleUserRound size={100} className="mx-auto text-gray-400" />
-            {/* <h2 className="text-2xl font-semibold">Welcome</h2> */}
-            <p className="text-2xl font-semibold">{profileData ? profileData.user.name : loading}</p>
-            <button className="bg-red-300 hover:bg-red-400 text-black text-md font-semibold px-4 py-1.5 rounded-md transition duration-150 hover:cursor-pointer" onClick={logout}>
-              Logout
-            </button>
+      {
+        Loading ? (
+          <div className="flex items-center justify-center h-64">
+            <div className="loader ease-linear rounded-full border-8 border-t-8 border-blue-800 h-16 w-16"></div>
           </div>
-        </div>
-      </div >
+        ) : (
+          <div className="flex items-center justify-start min-h-screen bg-gray-900 text-white space-y-4">
+            <div className="flex flex-col items-center justify-center min-h-screen w-3/4 bg-gray-800 text-white">
+              <Sidebar />
+            </div>
+
+            <div>
+              <div className="bg-gray-900 p-6 rounded-md space-y-2 text-center max-w-sm">
+                <CircleUserRound size={100} className="mx-auto text-gray-400" />
+                {/* <h2 className="text-2xl font-semibold">Welcome</h2> */}
+                <p className="text-2xl font-semibold">{profileData ? profileData.user.name : loading}</p>
+                <button className="bg-red-300 hover:bg-red-400 text-black text-md font-semibold px-4 py-1.5 rounded-md transition duration-150 hover:cursor-pointer" onClick={logout}>
+                  Logout
+                </button>
+              </div>
+            </div>
+          </div>
+        )
+      }
     </>
   );
 }

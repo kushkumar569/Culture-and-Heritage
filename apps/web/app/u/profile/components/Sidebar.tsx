@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@repo/ui/button";
 import { useProfile } from "../contextAPI/ProfileContext";
 import Tourist from "./Tourist";
@@ -12,16 +12,17 @@ export default function Sidebar() {
   const [selected, setSelected] = useState("Tourist");
   const options = ["Tourist", "Vlogger", "Vendor", "Guide"];
 
+  // Render the appropriate component based on the selected option and pass setSelected as prop to change after registration
   const renderProfileSection = () => {
     switch (selected) {
       case "Tourist":
-        return <Tourist />;
+        return <Tourist setSelected={setSelected} />;
       case "Vlogger":
-        return <Vlogger />;
+        return <Vlogger setSelected={setSelected} />;
       case "Vendor":
-        return <Vendor />;
+        return <Vendor setSelected={setSelected} />;
       case "Guide":
-        return <Guide />;
+        return <Guide setSelected={setSelected} />;
       default:
         return null;
     }
@@ -35,11 +36,10 @@ export default function Sidebar() {
         {options.map((option) => (
           <Button
             key={option}
-            className={`text-left py-2 px-4 mb-2 rounded ${
-              selected === option
+            className={`text-left py-2 px-4 mb-2 rounded ${selected === option
                 ? "bg-blue-600 font-semibold hover:bg-blue-600"
                 : "hover:bg-gray-700"
-            }`}
+              }`}
             onClick={() => setSelected(option)}
           >
             {option}
@@ -65,7 +65,7 @@ export default function Sidebar() {
 
         {/* Dynamic Component Rendering */}
         <div className="bg-gray-800 rounded-xl p-6 shadow-md">
-          {renderProfileSection()}
+          {renderProfileSection() }
         </div>
       </div>
     </div>

@@ -3,18 +3,19 @@ import React, { useState } from "react";
 import { useProfile } from "../contextAPI/ProfileContext";
 import { Button } from "@repo/ui/button";
 
-export default function Tourist() {
+export default function Tourist({setSelected}: any) {
     const { profileData } = useProfile();
     // console.log("Profile Data in Tourist Component:", profileData);
     const [isTourist, setIsTourist] = useState(profileData?.user?.isTourist);
 
     return (
         <>
-            {isTourist ? <Main /> : <RegisterTourist profileData={profileData} setIsTourist={setIsTourist} />}
+            {isTourist ? <Main profileData={profileData}/> : <RegisterTourist profileData={profileData} setIsTourist={setIsTourist} />}
         </>
     );
 }
 
+// actually this is useless becouse every user is tourist by default.
 function RegisterTourist({ profileData, setIsTourist }: any) {
     async function handleRegister() {
         const userId = profileData?.user?.id;
@@ -45,21 +46,20 @@ function RegisterTourist({ profileData, setIsTourist }: any) {
 
     return (
         <div className="p-4">
-            <h2 className="text-2xl font-bold mb-4">Register as Tourist</h2>
+            <h2 className="text-2xl font-bold mb-4">You are Not Registered as a Tourist</h2>
             <p>Please complete your tourist profile registration.</p>
-            <Button className="mt-4" onClick={handleRegister}>
+            <Button className="mt-4 p-2 hover:bg-blue-500 bg-blue-600 rounded-md font-bold" onClick={handleRegister}>
                 Register as Tourist
             </Button>
         </div>
     );
 }
 
-function Main() {
+function Main({ profileData }: any) {
     return (
         <div className="p-4">
-            <h2 className="text-2xl font-bold mb-4">Incomplete Profile</h2>
-            <p>Your profile is incomplete. Please update your information.</p>
-            {/* Additional prompts or links to complete the profile can be added here */}
+            <h2 className="text-2xl font-bold mb-4">Welcome, {profileData.user.name}</h2>
+            <p>Here is your profile information as tourist</p>
         </div>
     );
 }

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useProfile } from "../contextAPI/ProfileContext";
 import { Button } from "@repo/ui/button";
 
-export default function Vlogger() {
+export default function Vlogger({setSelected}: any) {
     const { profileData } = useProfile();
     // console.log("Profile Data in Vlogger Component:", profileData);
     const [isVlogger, setIsVlogger] = useState(profileData?.user?.isVlogger);

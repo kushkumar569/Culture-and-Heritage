@@ -41,9 +41,22 @@ Registration.post("/vlogger", async (req: any, res: any) => {
 });
 
 Registration.post("/vendor", async (req: any, res: any) => {
-  const { userId } = req.body;
+  const { userId, shopName, shopAddress, shopDescription, isOpen } = req.body;
 
   try {
+    const shop = await client.VendorProfile.create({
+      data: {
+        userId: userId,
+        shopName: shopName,
+        description: shopDescription,
+        location: shopAddress,
+        isOpen: isOpen,
+      },
+    });
+    if (!shop) {
+      return res.status(500).json({ error: "Shop creation failed" });
+    }
+
     const registration = await client.user.update({
       where: { id: userId },
       data: {
@@ -60,7 +73,7 @@ Registration.post("/vendor", async (req: any, res: any) => {
 Registration.post("/tourist", async (req: any, res: any) => {
   const { userId } = req.body;
   console.log("Received userId for tourist registration:", userId);
-  
+
   try {
     const registration = await client.user.update({
       where: { id: userId },
@@ -76,4 +89,4 @@ Registration.post("/tourist", async (req: any, res: any) => {
 });
 
 module.exports = Registration;
-export {};
+export { };
