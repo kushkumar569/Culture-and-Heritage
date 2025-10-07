@@ -10,13 +10,13 @@ import Profile from "./ProfileBtn";
 import { useRouter } from "next/navigation";
 import { Input } from "@repo/ui/input"; // Import your custom animated Input component
 
-const sections = ["All", "Trending", "Suggestions", "Near"];
+const sections = ["About", "Trending", "Suggestions", "Near"];
 
 export default function Navbar() {
     const router = useRouter();
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // initialize as false
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [activeSection, setActiveSection] = useState("All");
+    const [activeSection, setActiveSection] = useState("About");
     const [searchText, setSearchText] = useState("");
 
     useEffect(() => {
@@ -53,15 +53,16 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto flex items-center justify-between h-20 px-4 md:px-6">
 
                 {/* Logo Section */}
-                <div className="flex items-center space-x-3 hover:cursor-pointer" onClick={() => router.push("/")}>
+                <div className="flex items-center hover:cursor-pointer" onClick={() => router.push("/")}>
                     <img
-                        className="h-10"
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/800px-Google_%22G%22_logo.svg.png"
-                        alt="Google Logo"
+                        className="h-30 w-30"
+                        src="https://res.cloudinary.com/dpcdpjm8a/image/upload/v1759838393/unnamed-removebg-preview_prgvim.png"
+                        alt="Logo"
                     />
-                    <h1 className="text-xl font-semibold text-gray-300 whitespace-nowrap">
-                        Culture and Heritage
-                    </h1>
+                    <p className="text-xl font-semibold text-gray-300 whitespace-nowrap">
+                         HeritageHub<br />
+                        <span className="text-sm font-medium text-gray-400">A Digital Platform for Culture & Heritage</span>
+                    </p>
                 </div>
 
                 {/* Sections */}
