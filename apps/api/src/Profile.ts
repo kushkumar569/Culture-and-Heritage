@@ -27,5 +27,5 @@ profileRouter.get("/", async (req: any, res: any) => {
   }
 });
 
-module.exports = profileRouter ;
+module.exports = profileRouter;
 export {}; // use this to prevent "Cannot redeclare block-scoped variable" error in VSCode

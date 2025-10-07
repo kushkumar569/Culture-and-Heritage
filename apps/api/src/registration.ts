@@ -1,5 +1,3 @@
-import e from "express";
-
 require('dotenv').config();
 const { Router } = require("express");
 const Registration = Router();

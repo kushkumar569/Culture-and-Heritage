@@ -5,9 +5,10 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
 interface NotificationProps {
   message: string;
   type?: "info" | "success" | "error";
+  onClose?: () => void;
 }
 
-export const Notification = ({ message, type = "info" }: NotificationProps) => {
+export const Notification = ({ message, type = "info", onClose }: NotificationProps) => {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
