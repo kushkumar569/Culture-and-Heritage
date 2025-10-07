@@ -6,17 +6,16 @@ import { Input } from "@repo/ui/input";
 
 export default function Vendor({setSelected}: any) {
     const { profileData } = useProfile();
-    console.log("Profile Data in Vendor Component:", profileData);
     const [isVendor, setIsVendor] = useState(profileData?.user?.isVendor);
     return (
         <>
-            {isVendor ? <Main /> : <RegisterVendor profileData={profileData} setIsVendor={setIsVendor} setSelected={setSelected} />}
+            {isVendor ? <Main /> : <RegisterVendor profileData={profileData} setIsVendor={setIsVendor} />}
         </>
     );
 }
 
 // after registration switch to vendor section automaticly by calling setSelected("Vendor")
-function RegisterVendor({ profileData, setIsVendor, setSelected }: any) {
+function RegisterVendor({ profileData, setIsVendor }: any) {
     const [shopName, setShopName] = useState("");
     const [shopAddress, setShopAddress] = useState("");
     const [shopDescription, setShopDescription] = useState("");
@@ -40,7 +39,6 @@ function RegisterVendor({ profileData, setIsVendor, setSelected }: any) {
             if (response.ok) {
                 const data = await response.json();
                 setIsVendor(true); // Update the isVendor status after successful registration
-                setSelected("Vendor"); // Switch to Vendor section after registration
             } else {
                 console.error("Error registering vendor:", response.statusText);
             }

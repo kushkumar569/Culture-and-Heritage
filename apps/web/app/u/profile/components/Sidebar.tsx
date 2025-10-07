@@ -16,13 +16,13 @@ export default function Sidebar() {
   const renderProfileSection = () => {
     switch (selected) {
       case "Tourist":
-        return <Tourist setSelected={setSelected} />;
+        return <Tourist  />;
       case "Vlogger":
-        return <Vlogger setSelected={setSelected} />;
+        return <Vlogger  />;
       case "Vendor":
-        return <Vendor setSelected={setSelected} />;
+        return <Vendor  />;
       case "Guide":
-        return <Guide setSelected={setSelected} />;
+        return <Guide  />;
       default:
         return null;
     }

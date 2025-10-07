@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useProfile } from "../contextAPI/ProfileContext";
 import { Button } from "@repo/ui/button";
 
-export default function Tourist({setSelected}: any) {
+export default function Tourist() {
     const { profileData } = useProfile();
     // console.log("Profile Data in Tourist Component:", profileData);
     const [isTourist, setIsTourist] = useState(profileData?.user?.isTourist);
