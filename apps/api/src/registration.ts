@@ -22,9 +22,19 @@ Registration.post("/guide", async (req: any, res: any) => {
 });
 
 Registration.post("/vlogger", async (req: any, res: any) => {
-  const { userId } = req.body;
-
+  const { userId, bio, channelUrl, isActive } = req.body;
   try {
+    const vloggerProfile = await client.VloggerProfile.create({
+      data: {
+        userId: userId,
+        bio: bio,
+        channelUrl: channelUrl,
+        isActive: isActive,
+      },
+    }); 
+    if (!vloggerProfile) {
+      return res.status(500).json({ error: "Vlogger profile creation failed" });
+    }
     const registration = await client.user.update({
       where: { id: userId },
       data: {
