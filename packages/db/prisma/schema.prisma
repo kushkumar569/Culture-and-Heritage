@@ -51,6 +51,7 @@ model Post {
   title     String
   content   String
   mediaUrl  String?
+  place     String?
   type      PostType
   upvotes   Int      @default(0)
   downvotes Int      @default(0)
