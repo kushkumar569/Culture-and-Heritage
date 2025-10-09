@@ -79,6 +79,7 @@ model VloggerProfile {
   id          Int     @id @default(autoincrement())
   userId      Int     @unique
   bio         String?
+  channelName String?
   channelUrl  String?
   subscribers Int     @default(0)
   isActive    Boolean @default(true)

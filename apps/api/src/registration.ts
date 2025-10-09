@@ -22,12 +22,13 @@ Registration.post("/guide", async (req: any, res: any) => {
 });
 
 Registration.post("/vlogger", async (req: any, res: any) => {
-  const { userId, bio, channelUrl, isActive } = req.body;
+  const { userId, bio, channelUrl, channelName, isActive } = req.body;
   try {
     const vloggerProfile = await client.VloggerProfile.create({
       data: {
         userId: userId,
         bio: bio,
+        channelName: channelName,
         channelUrl: channelUrl,
         isActive: isActive,
       },
