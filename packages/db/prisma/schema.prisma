@@ -35,6 +35,7 @@ model User {
   // Relations
   posts            Post[]
   votes            Vote[]
+  products         Product[]
   vloggerProfile   VloggerProfile?
   guideProfile     GuideProfile?
   vendorProfile    VendorProfile?
@@ -100,26 +101,26 @@ model GuideProfile {
 }
 
 model VendorProfile {
-  id          Int     @id @default(autoincrement())
-  userId      Int     @unique
+  id          Int      @id @default(autoincrement())
+  userId      Int      @unique
   shopName    String
   description String?
   location    String
-  isOpen      Boolean @default(true)
+  isOpen      Boolean  @default(true)
 
-  user     User      @relation(fields: [userId], references: [id])
-  products Product[]
+  user      User       @relation(fields: [userId], references: [id])
 }
 
 model Product {
-  id          Int     @id @default(autoincrement())
-  vendorId    Int
+  id          Int      @id @default(autoincrement())
+  userId      Int
   name        String
   description String
   price       Decimal
-  imageUrl    String?
-
-  vendor VendorProfile @relation(fields: [vendorId], references: [id])
+  place       String
+  imageUrl    String
+  
+  user   User @relation(fields: [userId], references: [id])
 }
 
 // -----------------------
