@@ -1,5 +1,3 @@
-import e from "express";
-
 require("dotenv").config();
 const { Router: expressRouter } = require("express");
 const Vlogger = expressRouter();

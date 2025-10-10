@@ -10,6 +10,7 @@ const profile = require("./Profile");
 const registration = require("./registration");
 const profileDetail = require("./profileDetails");
 const vlogger = require("./vlogger")
+const vendor = require("./vendor")
 
 const cors = require('cors');
 const app = express();
@@ -26,6 +27,7 @@ app.use("/api/user/profile", profile);
 app.use("/api/registration", registration);
 app.use("/api/user/details", profileDetail);
 app.use("/api/vlogger",vlogger);
+app.use("/api/vendor",vendor);
 
 app.listen(process.env.PORT, () => {
     console.log(`APIs is running on http://localhost:${process.env.PORT}`);
