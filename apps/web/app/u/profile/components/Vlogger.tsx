@@ -274,7 +274,7 @@ function Main() {
 }
 
 function Card({ post }: { post: Posts }) {
-  const { title, content, mediaUrl, type, createdAt, upvotes, downvotes,place } = post;
+  const { title, content, mediaUrl, type, createdAt, upvotes, downvotes, place } = post;
 
   return (
     <div className="bg-gray-900 text-gray-100 rounded-xl shadow-md overflow-hidden w-60 flex-shrink-0 border border-gray-700">
@@ -307,7 +307,7 @@ function Card({ post }: { post: Posts }) {
         <h2 className="text-sm font-semibold text-white truncate">{title}</h2>
         <h2 className="text-xs font-semibold text-gray-400 truncate">📍{place}</h2>
       </div>
-      
+
       <div className="px-2 pb-2">
         <p className="text-gray-300 text-sm line-clamp-3">{content}</p>
       </div>
@@ -315,7 +315,7 @@ function Card({ post }: { post: Posts }) {
   );
 }
 
-function Upload({setupload}: any) {
+function Upload({ setupload }: any) {
   const { profileData } = useProfile();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -385,10 +385,16 @@ function Upload({setupload}: any) {
         body: JSON.stringify(payload),
       });
 
-      const data = await res.json();
-      console.log(" Post Saved:", data);
-      alert("Post uploaded successfully!");
-      setupload(false);
+      if (res.ok) {
+        const data = await res.json();
+        console.log(" Post Saved:", data);
+        alert("Post uploaded successfully!");
+        setupload(false);
+      } else {
+        const errorData = await res.json();
+        console.error("Error uploading post:", errorData);
+        alert("Failed to upload post.");
+      }
     } catch (error) {
       console.error(" Backend error:", error);
       alert("Failed to upload post.");
